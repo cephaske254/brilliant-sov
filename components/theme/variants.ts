@@ -1,9 +1,21 @@
 import { FlexStyle, ImageStyle, TextStyle, ViewStyle } from "react-native";
+import { Colors } from "./palette";
 
 const variants: Record<
-  "cardVariants",
-  ViewStyle | TextStyle | ImageStyle | FlexStyle
+  "cardVariants" | "containerVariants",
+  Record<
+    string,
+    (ViewStyle | TextStyle | ImageStyle | FlexStyle) & {
+      backgroundColor: Colors;
+    }
+  >
 > = {
   cardVariants: {},
+  containerVariants: {
+    defaults: {
+      flex: 1,
+      backgroundColor: "mainBackground",
+    },
+  },
 };
 export default variants;
