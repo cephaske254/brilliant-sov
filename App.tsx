@@ -1,19 +1,19 @@
+import { ThemeProvider } from "@shopify/restyle";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View } from "react-native";
+import { Text } from "react-native";
+import Scaffold from "./components/theme/Scaffold";
+import theme from "./components/theme/theme";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor={styles.container.backgroundColor} />
-    </View>
+    <ThemeProvider theme={theme}>
+      <Scaffold>
+        {/* Set the background of the status bar to match the app background */}
+        <StatusBar  />
+        <Text>Helloo</Text>
+      </Scaffold>
+    </ThemeProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+ 

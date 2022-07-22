@@ -1,0 +1,53 @@
+Arguments: 
+  /home/cephas/.nvm/versions/node/v16.15.1/bin/node /home/cephas/.npm/_npx/c094c3349f8dd527/node_modules/.bin/yarn add @shopify/restyle
+
+PATH: 
+  /mnt/c/Users/Cephas/Documents/brilliant/node_modules/.bin:/mnt/c/Users/Cephas/Documents/node_modules/.bin:/mnt/c/Users/Cephas/node_modules/.bin:/mnt/c/Users/node_modules/.bin:/mnt/c/node_modules/.bin:/mnt/node_modules/.bin:/node_modules/.bin:/home/cephas/.nvm/versions/node/v16.15.1/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/home/cephas/.npm/_npx/c094c3349f8dd527/node_modules/.bin:/home/cephas/.nvm/versions/node/v16.15.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Go/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Users/Cephas/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/Cephas/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/flutter/bin:/mnt/c/Users/Cephas/go/bin:/mnt/c/Program Files/CodeBlocks/MinGW/bin:/snap/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  16.15.1
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com
+      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:71:26)
+
+npm manifest: 
+  {
+    "name": "brilliant",
+    "version": "1.0.0",
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "expo": "~45.0.0",
+      "expo-status-bar": "~1.3.0",
+      "react": "17.0.2",
+      "react-dom": "17.0.2",
+      "react-native": "0.68.2",
+      "react-native-web": "0.17.7"
+    },
+    "devDependencies": {
+      "@babel/core": "^7.12.9",
+      "typescript": "~4.3.5",
+      "@types/react": "~17.0.21",
+      "@types/react-native": "~0.67.6"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
