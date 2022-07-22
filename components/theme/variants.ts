@@ -17,15 +17,20 @@ const variants = {
   }),
 
   // text variants
-  textVariants: buildVariant<"h1" | "h2">({
+  textVariants: buildVariant<"h1" | "h2" | "h3">({
     h1: {
       fontSize: 65,
       lineHeight: 72,
       fontWeight: "700",
     },
     h2: {
-      fontSize: 65,
-      lineHeight: 72,
+      fontSize: 50,
+      lineHeight: 56,
+      fontWeight: "700",
+    },
+    h3: {
+      fontSize: 40,
+      lineHeight: 45,
       fontWeight: "700",
     },
   }),
