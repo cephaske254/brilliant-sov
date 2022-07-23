@@ -1,5 +1,5 @@
 import AppHeader from "../components/AppHeader";
-import Box from "../components/theme/Box";
+import Box from "../theme/Box";
 
 const Home = () => {
   return (

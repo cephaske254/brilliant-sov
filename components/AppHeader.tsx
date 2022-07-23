@@ -1,9 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { ComponentProps } from "react";
 import { SafeAreaView, TextStyle, ViewStyle } from "react-native";
+import Box from "../theme/Box";
+import Text from "../theme/Text";
 import SearchInput from "./SearchInput";
-import Box from "./theme/Box";
-import Text from "./theme/Text";
 
 const AppHeader = ({
   title,

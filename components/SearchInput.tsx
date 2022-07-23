@@ -9,8 +9,8 @@ import {
 import { Icon } from "react-native-eva-icons";
 import { SharedElement } from "react-navigation-shared-element";
 import { SharedRoutesProps } from "../router";
-import Box from "./theme/Box";
-import { palette } from "./theme/palette";
+import Box from "../theme/Box";
+import { palette } from "../theme/palette";
 
 const SearchInput = () => {
   const { navigate, getId } = useNavigation<SharedRoutesProps<"Search">>();
