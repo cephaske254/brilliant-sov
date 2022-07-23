@@ -22,18 +22,25 @@ const grey = {
 };
 
 const palette = {
-  primaryLight: "",
-  primaryMain: "#2c1765",
-  primaryDark: "",
+  primaryLight: "#262a3d",
+  primaryMain: "#211834",
+  primaryDark: "#0a0c10",
+
+  secondaryDark: "#733898",
+  secondaryMain: "#bf5efe",
+  secondaryLight: "#d99efe",
 
   black: "#0B0B0B",
-  white: "#F0F2F3",
+  white: "#d9dade",
   grey,
 };
 
 const colors = {
-  mainBackground: palette.white,
+  mainBackground: palette.primaryDark,
   cardPrimaryBackground: palette.primaryMain,
+  primary: palette.primaryMain,
+
+  white: palette.white,
 };
 type Colors = keyof typeof colors;
 

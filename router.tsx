@@ -1,11 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { createSharedElementStackNavigator } from "react-navigation-shared-element";
 import Home from "./screens/Home";
 import Search from "./screens/Search";
 
-type SharedRoutes = {
+export type SharedRoutes = {
   Home: undefined;
   Search: undefined;
 };
@@ -17,7 +17,15 @@ const Stack = createSharedElementStackNavigator<SharedRoutes>();
 
 const SharedElementRouter = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        ...DefaultTheme,
+        colors: {
+          ...DefaultTheme.colors,
+          background: "transparent",
+        },
+      }}
+    >
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{ headerShown: false }}

@@ -4,7 +4,15 @@ import variants from "./variants";
 
 const theme = createTheme({
   colors,
+  borderRadii: {
+    xs: 4,
+    s: 8,
+    m: 12,
+    l: 16,
+    xl: 22,
+  },
   spacing: {
+    xs: 4,
     s: 8,
     m: 16,
     l: 24,
