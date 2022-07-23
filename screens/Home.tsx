@@ -4,7 +4,7 @@ import Box from "../components/theme/Box";
 const Home = () => {
   return (
     <Box>
-      <AppHeader />
+      <AppHeader title="Categories" />
     </Box>
   );
 };

@@ -1,12 +1,12 @@
 import { SafeAreaView } from "react-native";
-import SearchInput from "../components/SearchInput";
+import AppHeader from "../components/AppHeader";
 import Box from "../components/theme/Box";
 
 const Search = () => {
   return (
     <SafeAreaView>
       <Box>
-        <SearchInput />
+        <AppHeader title="Explore" />
       </Box>
     </SafeAreaView>
   );
