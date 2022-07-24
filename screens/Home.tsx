@@ -1,21 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
-import { useTheme } from "@shopify/restyle";
 import { capitalCase } from "change-case";
 import { Dimensions, TouchableNativeFeedback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 import AppHeader from "../components/AppHeader";
+import useTheme from "../hooks/useTheme";
 import { SharedNavigationProps } from "../router";
 import { selectCategories } from "../store/selectors/categories";
 import Box from "../theme/Box";
 import Card from "../theme/Card";
 import Text from "../theme/Text";
-import { Theme } from "../theme/theme";
 
 const Home = () => {
   const { categories } = useSelector(selectCategories);
   // theme
-  const { borderRadii, spacing, colors } = useTheme<Theme>();
+  const { borderRadii, spacing, colors } = useTheme();
   const cardSpacing: keyof typeof borderRadii = "s";
   // navigation
   const { navigate } = useNavigation<SharedNavigationProps<"Home">>();

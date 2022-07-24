@@ -25,6 +25,6 @@ const theme = createTheme({
   ...variants,
 });
 
-
 export type Theme = typeof theme;
+export type ThemeVariants = typeof variants;
 export default theme;
