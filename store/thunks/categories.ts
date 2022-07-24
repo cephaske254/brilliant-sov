@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../api/api";
+import { apiGetCategories } from "../../api/categories";
 
 export const reduxGetCategories = createAsyncThunk("GET_CATEGORIES", () => {
-  return api.get<string[]>("/jokes/categories").then((a) => a.data);
+  return apiGetCategories();
 });

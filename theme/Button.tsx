@@ -6,11 +6,17 @@ import {
   composeRestyleFunctions,
   layout,
   LayoutProps,
+  shadow,
+  ShadowProps,
   spacing,
   SpacingProps,
-  useRestyle
+  useRestyle,
+  VariantProps
 } from "@shopify/restyle";
-import { LayoutChangeEvent, TouchableOpacity } from "react-native";
+import {
+  LayoutChangeEvent,
+  TouchableNativeFeedback
+} from "react-native";
 
 import { ReactElement } from "react";
 import Box from "./Box";
@@ -20,12 +26,14 @@ import { Theme } from "./theme";
 type RestyleProps = SpacingProps<Theme> &
   BorderProps<Theme> &
   LayoutProps<Theme> &
+  ShadowProps<Theme> &
   BackgroundColorProps<Theme>;
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   spacing,
   border,
   layout,
+  shadow,
   backgroundColor,
 ] as any);
 
@@ -33,21 +41,26 @@ type Props = RestyleProps & {
   onPress: () => void;
   label: string | ReactElement;
   onLayout?: (e: LayoutChangeEvent) => void;
-};
+} & VariantProps<Theme, "buttonVariants">;
 
-const Button = ({ onLayout, onPress, label, ...rest }: Props) => {
+const Button = ({ onLayout, variant, onPress, label, ...rest }: Props) => {
   const props = useRestyle(restyleFunctions, rest);
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <Box onLayout={onLayout} {...(props as any)}>
+    <TouchableNativeFeedback onPress={onPress}>
+      <Box
+        onLayout={onLayout}
+        borderRadius="l"
+        overflow="hidden"
+        {...(props as any)}
+      >
         {typeof label === "string" ? (
           <Text variant="buttonLabel">{label}</Text>
         ) : (
           label
         )}
       </Box>
-    </TouchableOpacity>
+    </TouchableNativeFeedback>
   );
 };
 

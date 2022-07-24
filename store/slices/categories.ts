@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { reduxGetCategories } from "../thunks/globals";
+import { reduxGetCategories } from "../thunks/categories";
 
 const initialState: InitialState = {
   categories: [],
@@ -11,7 +11,7 @@ const initialState: InitialState = {
 };
 
 const globals = createSlice({
-  name: "globals",
+  name: "categories",
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -19,6 +19,7 @@ const globals = createSlice({
     builder
       .addCase(reduxGetCategories.fulfilled, (state, { payload }) => {
         state.categories = payload;
+        return state;
       })
       // set loading start
       .addMatcher(

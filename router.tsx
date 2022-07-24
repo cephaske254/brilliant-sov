@@ -1,19 +1,36 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  RouteProp
+} from "@react-navigation/native";
+import {
+  createNativeStackNavigator, NativeStackNavigationProp
+} from "@react-navigation/native-stack";
 
-import { createSharedElementStackNavigator } from "react-navigation-shared-element";
+import Category from "./screens/Category";
 import Home from "./screens/Home";
+import Quote from "./screens/Quote";
 import Search from "./screens/Search";
+import { palette } from "./theme/palette";
 
-export type SharedRoutes = {
+export type MainRoutes = {
   Home: undefined;
   Search: undefined;
+  Category: undefined;
+  Quote: { category: string };
 };
 
-export type SharedRoutesProps<T extends keyof SharedRoutes> =
-  NativeStackNavigationProp<SharedRoutes, T>;
+export type SharedNavigationProps<T extends keyof MainRoutes> =
+  NativeStackNavigationProp<MainRoutes, T>;
+  
+export type MainRouteParams<T extends keyof MainRoutes> = RouteProp<
+  MainRoutes,
+  T
+>;
 
-const Stack = createSharedElementStackNavigator<SharedRoutes>();
+// NativeStackNavigationProp
+
+const Stack = createNativeStackNavigator<MainRoutes>();
 
 const SharedElementRouter = () => {
   return (
@@ -22,7 +39,7 @@ const SharedElementRouter = () => {
         ...DefaultTheme,
         colors: {
           ...DefaultTheme.colors,
-          background: "transparent",
+          background: palette.primaryDark,
         },
       }}
     >
@@ -32,6 +49,8 @@ const SharedElementRouter = () => {
       >
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />
+        <Stack.Screen name="Category" component={Category} />
+        <Stack.Screen name="Quote" component={Quote} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,15 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import globals from "./slices/globals";
+import categories from "./slices/categories";
+import quotes from "./slices/quotes";
 
 const reducer = combineReducers({
-  globals
+  categories,
+  quotes,
 });
 
 const store = configureStore({
   reducer,
 });
 
-export type State = typeof reducer;
-export const useDispatch = store.dispatch;
+export type State = ReturnType<typeof reducer>;
+export const useDispatch = () => store.dispatch;
 
 export default store;

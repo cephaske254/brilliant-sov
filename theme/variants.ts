@@ -1,4 +1,5 @@
 import { FlexStyle, ImageStyle, TextStyle, ViewStyle } from "react-native";
+import { Colors } from "./palette";
 
 export type FontNames = {
   "Poppins-Medium": true;
@@ -11,7 +12,14 @@ const buildVariant = <VariantNames extends string>(
 
 const variants = {
   // card variants
-  cardVariants: buildVariant({}),
+  cardVariants: buildVariant<"rounded">({
+    rounded: {
+      borderRadius: "m",
+      backgroundColor: "cardPrimaryBackground",
+      paddingVertical: "l",
+      paddingHorizontal: "m",
+    },
+  }),
 
   // container variants
   containerVariants: buildVariant<"defaults">({
@@ -22,7 +30,9 @@ const variants = {
   }),
 
   // text variants
-  textVariants: buildVariant<"h1" | "h2" | "h3" | "buttonLabel" | "defaults">({
+  textVariants: buildVariant<
+    "h1" | "h2" | "h3" | "buttonLabel" | "defaults" | "title1" | "body2"
+  >({
     defaults: {
       fontSize: 20,
       lineHeight: 20,
@@ -43,6 +53,16 @@ const variants = {
       lineHeight: 45,
       fontFamily: "Poppins-Medium",
     },
+    title1: {
+      fontSize: 32,
+      lineHeight: 35,
+      fontFamily: "Poppins-Medium",
+    },
+    body2: {
+      fontSize: 18,
+      lineHeight: 20,
+      fontFamily: "Poppins-Regular",
+    },
     buttonLabel: {
       fontSize: 16,
       lineHeight: 16,
@@ -60,6 +80,8 @@ const variants = {
 type Styles = (ViewStyle | TextStyle | ImageStyle | FlexStyle) &
   Partial<{
     fontFamily: keyof FontNames;
+    borderRadius: string;
+    backgroundColor: Colors;
   }>;
 
 export default variants as typeof variants;

@@ -4,6 +4,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true
   },
-  "extends": "expo/tsconfig.base"
-  // "extends": "eslint-config-react-native-wcandillon/tsconfig.base"
+  // "extends": "expo/tsconfig.base"
+  "extends": "eslint-config-react-native-wcandillon/tsconfig.base"
 }

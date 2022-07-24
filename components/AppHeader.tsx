@@ -1,18 +1,15 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useTheme } from "@shopify/restyle";
+import { TextProps } from "@shopify/restyle";
 import { StatusBar } from "expo-status-bar";
-import { ComponentProps, useMemo, useRef } from "react";
-import { SafeAreaView, TextStyle, ViewStyle } from "react-native";
+import { ComponentProps, ReactElement, useMemo, useRef } from "react";
+import { TextStyle, ViewStyle } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from "react-native-reanimated";
+import { LinearGradient } from "expo-linear-gradient";
 import Box from "../theme/Box";
 import Button from "../theme/Button";
-import { palette } from "../theme/palette";
+import { colors, palette } from "../theme/palette";
 import Text from "../theme/Text";
 import { Theme } from "../theme/theme";
 import SearchInput from "./SearchInput";
@@ -22,14 +19,19 @@ const AppHeader = ({
   titleStyle = {},
   statusBarProps = {},
   containerStyles = {},
+  safeAreaStyle = {},
+  gradientProps = {},
+  children,
 }: {
   title?: string;
   titleStyle?: TextStyle;
   statusBarProps?: ComponentProps<typeof StatusBar>;
   containerStyles?: ViewStyle;
+  safeAreaStyle?: ViewStyle;
+  children?: ReactElement;
+  gradientProps?: Partial<ComponentProps<typeof LinearGradient>>;
 }) => {
   //theme
-  const { colors } = useTheme<Theme>();
 
   const layout = useRef<
     Record<"container" | "back", { width: number; height: number }>
@@ -44,111 +46,118 @@ const AppHeader = ({
     },
   });
 
-  // animation
-  const offset = useSharedValue(0);
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: offset.value }],
-    };
-  });
-
   const { name } = useRoute();
-  const { goBack, canGoBack } = useNavigation();
+  const { goBack } = useNavigation();
   const isHome = name === "Home";
 
-  const toggle = (open: boolean) => {
-    const duration = open ? 150 : 100;
-    if (open)
-      offset.value = withTiming(layout.current.container.width, {
-        duration,
-      });
-    else offset.value = withTiming(0, { duration });
-  };
+
 
   const Title = useMemo(() => {
-    return (
-      title && (
+    return ({ style, ...props }: TextProps<Theme> & { style?: TextStyle }) => {
+      if (!title) return null;
+      return (
         <Text
           variant="h3"
           color="white"
           style={{
             letterSpacing: 1,
-            ...titleStyle,
             fontSize: 20,
+            ...style,
           }}
+          {...props}
         >
           {title}
         </Text>
-      )
-    );
+      );
+    };
   }, [title, titleStyle]);
 
   return (
-    <SafeAreaView>
-      <Box
-        paddingHorizontal={"l"}
-        paddingBottom="xl"
+    <LinearGradient
+      colors={[colors["primary.main"], colors["primary.light"]]}
+      locations={[0.5, 1]}
+      start={{ x: 0, y: 0.65 }}
+      end={{ x: 1, y: 0.45 }}
+      {...gradientProps}
+    >
+      <SafeAreaView
+        edges={["top"]}
         style={{
+          // backgroundColor: palette.primaryMain,
           borderBottomEndRadius: 22,
           borderBottomStartRadius: 22,
-          display: "flex",
-          flexDirection: "column",
-          paddingTop: 25,
-          ...containerStyles,
+          ...safeAreaStyle,
         }}
       >
-        {/* Change the status bar foreground color */}
-        <StatusBar style="light" animated {...statusBarProps} />
-
-        {!isHome && (
-          <Box
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="space-between"
-            marginBottom="l"
-          >
-            <Button
-              onPress={() => goBack()}
-              borderColor="primary"
-              borderWidth={1}
-              padding="xs"
-              borderRadius="s"
-              width={BACK_BUTTON_SIZE}
-              height={BACK_BUTTON_SIZE}
-              alignItems="center"
-              justifyContent="center"
-              onLayout={({
-                nativeEvent: {
-                  layout: { height, width },
-                },
-              }) => {
-                layout.current.back.height = height;
-                layout.current.back.width = width;
-              }}
-              label={
-                <Box flexDirection="row" alignItems="center">
-                  <Ionicons name="chevron-back" color={palette.grey[400]} />
-                </Box>
-              }
-            />
-            {Title}
-            <Box width={BACK_BUTTON_SIZE} />
-          </Box>
-        )}
-        <SearchInput
-          onFocus={() => toggle(true)}
-          onBlur={() => toggle(false)}
-          onContainerLayout={(e) => {
-            layout.current.container.width = e.nativeEvent.layout.width;
-            layout.current.container.height = e.nativeEvent.layout.height;
+        <Box
+          paddingHorizontal={"l"}
+          paddingBottom="xl"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: 25,
+            ...containerStyles,
           }}
-          iconAnimation={animatedStyles}
-        />
-      </Box>
-    </SafeAreaView>
+        >
+          {/* Change the status bar foreground color */}
+          <StatusBar
+            style="light"
+            {...statusBarProps}
+            backgroundColor={palette.primaryMain}
+          />
+          {!isHome && (
+            <Box
+              flexDirection="row"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <Button
+                onPress={() => goBack()}
+                borderColor="transparent"
+                borderWidth={1}
+                padding="xs"
+                borderRadius="s"
+                width={BACK_BUTTON_SIZE}
+                height={BACK_BUTTON_SIZE}
+                alignItems="center"
+                justifyContent="center"
+                onLayout={({
+                  nativeEvent: {
+                    layout: { height, width },
+                  },
+                }) => {
+                  layout.current.back.height = height;
+                  layout.current.back.width = width;
+                }}
+                label={
+                  <Box flexDirection="row" alignItems="center">
+                    <Ionicons
+                      name="chevron-back"
+                      color={palette.grey["400"]}
+                      size={BACK_BUTTON_SIZE / 2}
+                    />
+                  </Box>
+                }
+              />
+              {!isHome && <Title />}
+              <Box width={BACK_BUTTON_SIZE} />
+            </Box>
+          )}
+          <SearchInput
+            onContainerLayout={(e) => {
+              layout.current.container.width = e.nativeEvent.layout.width;
+              layout.current.container.height = e.nativeEvent.layout.height;
+            }}
+          />
+
+          {isHome && <Title style={{ fontSize: 30, marginTop: 10 }} />}
+        </Box>
+      </SafeAreaView>
+      {children}
+    </LinearGradient>
   );
 };
 
-const BACK_BUTTON_SIZE = 30;
+const BACK_BUTTON_SIZE = 40;
 
 export default AppHeader;
