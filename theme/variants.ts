@@ -84,4 +84,6 @@ type Styles = (ViewStyle | TextStyle | ImageStyle | FlexStyle) &
     backgroundColor: Colors;
   }>;
 
+export type Variants = typeof variants;
+
 export default variants as typeof variants;

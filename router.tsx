@@ -1,10 +1,11 @@
 import {
   DefaultTheme,
   NavigationContainer,
-  RouteProp
+  RouteProp,
 } from "@react-navigation/native";
 import {
-  createNativeStackNavigator, NativeStackNavigationProp
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 
 import Category from "./screens/Category";
@@ -22,7 +23,7 @@ export type MainRoutes = {
 
 export type SharedNavigationProps<T extends keyof MainRoutes> =
   NativeStackNavigationProp<MainRoutes, T>;
-  
+
 export type MainRouteParams<T extends keyof MainRoutes> = RouteProp<
   MainRoutes,
   T

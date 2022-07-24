@@ -7,14 +7,14 @@ import {
   Image,
   LayoutRectangle,
   StyleSheet,
-  View
+  View,
 } from "react-native";
 import Animated, {
   SharedValue,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
-  withTiming
+  withTiming,
 } from "react-native-reanimated";
 import { useSelector } from "react-redux";
 import Loading from "../components/empty-states/Loading";

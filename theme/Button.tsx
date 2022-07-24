@@ -11,14 +11,10 @@ import {
   spacing,
   SpacingProps,
   useRestyle,
-  VariantProps
+  VariantProps,
 } from "@shopify/restyle";
-import {
-  LayoutChangeEvent,
-  TouchableNativeFeedback
-} from "react-native";
-
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
+import { LayoutChangeEvent, TouchableNativeFeedback } from "react-native";
 import Box from "./Box";
 import Text from "./Text";
 import { Theme } from "./theme";
