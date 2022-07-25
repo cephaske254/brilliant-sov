@@ -11,7 +11,6 @@ export const apiGetQuote = async ({
     getRandomQuote(category),
   ])) as [any, Quote];
 
-
   return {
     ...quote,
     icon_url: image.urls.small,
@@ -35,3 +34,11 @@ export type Quote = {
   url: string;
   value: string;
 };
+
+export const apiSearchQuotes = (query: string) =>
+  api
+    .get<{
+      total: number;
+      result: Quote[];
+    }>("jokes/search", { params: { query } })
+    .then((a) => a.data);

@@ -6,7 +6,6 @@ const initialState: InitialState = {
   loading: false,
   errored: {
     initialization: false,
-    search: false,
   },
 };
 
@@ -43,7 +42,6 @@ type InitialState = {
   loading: boolean;
   categories: string[];
   errored: {
-    search: boolean;
     initialization: boolean;
   };
 };

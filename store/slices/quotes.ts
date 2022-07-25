@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Quote } from "../../api/quotes";
-import { reduxGetQuote } from "../thunks/quotes";
+import { reduxGetQuote, reduxSearchQuotes } from "../thunks/quotes";
 
 type InitialState = {
   loading: { global: boolean; search: boolean };
@@ -36,6 +36,17 @@ const quotes = createSlice({
         return state;
       })
 
+      // search quotes
+      .addCase(reduxSearchQuotes.fulfilled, (state, { payload, meta }) => {
+        const query = meta.arg.trim();
+
+        state.search.results[query] = payload.result;
+        state.loading.search = false;
+        state.search.currentQuery = query;
+
+        return state;
+      })
+
       // set global loading
       .addCase(reduxGetQuote.pending, (state) => {
         state.loading.global = true;
@@ -43,6 +54,15 @@ const quotes = createSlice({
       // set global loading false
       .addCase(reduxGetQuote.rejected, (state) => {
         state.loading.global = false;
+      })
+
+      // set search loading true
+      .addCase(reduxSearchQuotes.pending, (state) => {
+        state.loading.search = true;
+      })
+      // set search loading false
+      .addCase(reduxSearchQuotes.rejected, (state) => {
+        state.loading.search = false;
       });
   },
 });

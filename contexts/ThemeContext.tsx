@@ -16,6 +16,4 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
-
 export { ThemeContext, ThemeProvider };
-

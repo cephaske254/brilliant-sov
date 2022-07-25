@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import colorAlpha from "color-alpha";
 import { useState } from "react";
 import {
@@ -13,10 +13,14 @@ import {
   TextInputFocusEventData,
   TextInputSubmitEditingEventData,
   TouchableNativeFeedback,
-  ViewStyle
+  ViewStyle,
 } from "react-native";
 import Animated, { AnimatedStyleProp } from "react-native-reanimated";
-import { SharedNavigationProps } from "../router";
+import { useSelector } from "react-redux";
+import { MainRouteParams, SharedNavigationProps } from "../router";
+import { useDispatch } from "../store";
+import { selectSearchResults } from "../store/selectors/search";
+import { reduxSearchQuotes } from "../store/thunks/quotes";
 import Box from "../theme/Box";
 import { palette } from "../theme/palette";
 import theme from "../theme/theme";
@@ -34,35 +38,21 @@ const SearchInput = ({
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   iconAnimation?: AnimatedStyleProp<ViewStyle>;
 }) => {
-  const { navigate, getId } = useNavigation<SharedNavigationProps<"Search">>();
+  const { navigate } = useNavigation<SharedNavigationProps<"Search">>();
+  const { name } = useRoute<MainRouteParams<"Search">>();
+  const dispatch = useDispatch();
 
-  const [{ loading, value }, setState] = useState({
-    loading: false,
-    errored: false,
-    value: "",
-  });
+  const { loading, query } = useSelector(selectSearchResults);
+  const [{ value }, setState] = useState({ value: query });
 
   const handleSearch = (
     _:
       | NativeSyntheticEvent<TextInputSubmitEditingEventData>
       | GestureResponderEvent
   ) => {
-    setState((state) => ({ ...state, loading: true, errored: false }));
-
-    const promise = new Promise((resolve) => {
-      setTimeout(resolve, 3000);
+    dispatch(reduxSearchQuotes(value)).then(() => {
+      if (name !== "Search") navigate("Search");
     });
-
-    promise
-      .then(() => {
-        setState((state) => ({ ...state, loading: false, errored: false }));
-      })
-      .catch(() => {
-        setState((state) => ({ ...state, loading: false, errored: true }));
-      })
-      .finally(() => {
-        if (getId() !== "Search") navigate("Search");
-      });
   };
 
   return (
