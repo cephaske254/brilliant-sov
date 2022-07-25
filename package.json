@@ -9,7 +9,7 @@
     "web": "expo start --web",
     "eject": "expo eject",
     "test": "jest --coverage=true --changedSince=origin/master",
-    "test:watch": "jest --watch --coverage=true --changedSince=origin/master  --detectOpenHandles",
+    "test:watch": "jest --watch --coverage=true --changedSince=origin/master",
     "jest:clear": "jest --clearCache"
   },
   "dependencies": {

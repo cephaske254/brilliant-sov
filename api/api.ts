@@ -17,4 +17,3 @@ unsplash.interceptors.request.use((config: AxiosRequestConfig) => {
 });
 
 export { unsplash, api };
-
