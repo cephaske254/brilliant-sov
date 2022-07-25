@@ -21,7 +21,7 @@ import Loading from "../components/empty-states/Loading";
 import NotFound from "../components/empty-states/NotFound";
 import { MainRouteParams } from "../router";
 import { useDispatch } from "../store";
-import { selectQuoteByCategory } from "../store/selectors/quotes";
+import { selectQuoteByCategoryOrSearchQuery } from "../store/selectors/quotes";
 import { reduxGetQuote } from "../store/thunks/quotes";
 import Box from "../theme/Box";
 import { palette } from "../theme/palette";
@@ -34,7 +34,9 @@ const Quote = () => {
   const { width, height } = Dimensions.get("screen");
   const { params } = useRoute<MainRouteParams<"Quote">>();
   // store & state
-  const { loading, quote } = useSelector(selectQuoteByCategory(params));
+  const { loading, quote } = useSelector(
+    selectQuoteByCategoryOrSearchQuery(params)
+  );
   const dispatch = useDispatch();
 
   // local state

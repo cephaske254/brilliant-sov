@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { apiGetQuote, apiSearchQuotes, Quote } from "../../api/quotes";
 
-export const reduxGetQuote = createAsyncThunk<Quote, { category: string }>(
+export const reduxGetQuote = createAsyncThunk<Quote, any>(
   "GET_QUOTE",
   (params) => {
     return apiGetQuote(params);

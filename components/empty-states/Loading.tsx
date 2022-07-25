@@ -1,13 +1,19 @@
 import { useCallback, useEffect } from "react";
-import { ActivityIndicator, StyleSheet } from "react-native";
+import { ActivityIndicator, StyleSheet, ViewStyle } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withTiming
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import { palette } from "../../theme/palette";
 
-const Loading = ({ loading }: { loading: boolean }) => {
+const Loading = ({
+  loading,
+  styles,
+}: {
+  loading: boolean;
+  styles?: ViewStyle;
+}) => {
   const opacity = useSharedValue(loading ? 1 : 0);
 
   const animatedStyles = useAnimatedStyle(() => ({
@@ -37,6 +43,7 @@ const Loading = ({ loading }: { loading: boolean }) => {
           backgroundColor: palette.primaryDark,
         },
         animatedStyles,
+        styles,
       ]}
     >
       <ActivityIndicator color={palette.white} />

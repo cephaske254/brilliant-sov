@@ -2,11 +2,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { TextProps } from "@shopify/restyle";
 import { StatusBar } from "expo-status-bar";
-import { ComponentProps, ReactElement, useMemo, useRef } from "react";
+import { ComponentProps, ReactNode, RefObject, useMemo, useRef } from "react";
 import { TextStyle, ViewStyle } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { LinearGradient } from "expo-linear-gradient";
+import { TextInput } from "react-native-gesture-handler";
 import Box from "../theme/Box";
 import Button from "../theme/Button";
 import { colors, palette } from "../theme/palette";
@@ -22,14 +23,16 @@ const AppHeader = ({
   safeAreaStyle = {},
   gradientProps = {},
   children,
+  searchInputRef,
 }: {
   title?: string;
   titleStyle?: TextStyle;
   statusBarProps?: ComponentProps<typeof StatusBar>;
   containerStyles?: ViewStyle;
   safeAreaStyle?: ViewStyle;
-  children?: ReactElement;
+  children?: ReactNode;
   gradientProps?: Partial<ComponentProps<typeof LinearGradient>>;
+  searchInputRef?: RefObject<TextInput>;
 }) => {
   //theme
 
@@ -49,8 +52,6 @@ const AppHeader = ({
   const { name } = useRoute();
   const { goBack } = useNavigation();
   const isHome = name === "Home";
-
-
 
   const Title = useMemo(() => {
     return ({ style, ...props }: TextProps<Theme> & { style?: TextStyle }) => {
@@ -83,7 +84,7 @@ const AppHeader = ({
       <SafeAreaView
         edges={["top"]}
         style={{
-          // backgroundColor: palette.primaryMain,
+          backgroundColor: palette.primaryMain,
           borderBottomEndRadius: 22,
           borderBottomStartRadius: 22,
           ...safeAreaStyle,
@@ -144,6 +145,7 @@ const AppHeader = ({
             </Box>
           )}
           <SearchInput
+            searchInputRef={searchInputRef}
             onContainerLayout={(e) => {
               layout.current.container.width = e.nativeEvent.layout.width;
               layout.current.container.height = e.nativeEvent.layout.height;

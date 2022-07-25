@@ -9,7 +9,7 @@ import {
   EmitterSubscription,
   Keyboard,
   Pressable,
-  View
+  View,
 } from "react-native";
 import "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";

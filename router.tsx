@@ -18,7 +18,7 @@ export type MainRoutes = {
   Home: undefined;
   Search: undefined;
   Category: undefined;
-  Quote: { category: string };
+  Quote: { category?: string; id?: string; query?: string };
 };
 
 export type SharedNavigationProps<T extends keyof MainRoutes> =

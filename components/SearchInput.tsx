@@ -1,7 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import colorAlpha from "color-alpha";
-import { useState } from "react";
+import { RefObject, useState } from "react";
 import {
   ActivityIndicator,
   GestureResponderEvent,
@@ -31,12 +31,14 @@ const SearchInput = ({
   onBlur,
   onFocus,
   iconAnimation,
+  searchInputRef,
 }: {
   hideIcon?: boolean;
   onContainerLayout?: (a: LayoutChangeEvent) => void;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onFocus?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   iconAnimation?: AnimatedStyleProp<ViewStyle>;
+  searchInputRef?: RefObject<TextInput> | undefined;
 }) => {
   const { navigate } = useNavigation<SharedNavigationProps<"Search">>();
   const { name } = useRoute<MainRouteParams<"Search">>();
@@ -50,11 +52,16 @@ const SearchInput = ({
       | NativeSyntheticEvent<TextInputSubmitEditingEventData>
       | GestureResponderEvent
   ) => {
-    dispatch(reduxSearchQuotes(value)).then(() => {
-      if (name !== "Search") navigate("Search");
-    });
+    if (!value || value?.trim() === query?.trim()) goToSearch();
+    else
+      dispatch(reduxSearchQuotes(value)).then(() => {
+        goToSearch();
+      });
   };
 
+  const goToSearch = () => {
+    if (name !== "Search") navigate("Search");
+  };
   return (
     <Box
       paddingHorizontal="m"
@@ -75,6 +82,7 @@ const SearchInput = ({
       onLayout={onContainerLayout}
     >
       <TextInput
+        ref={searchInputRef}
         onFocus={onFocus}
         onBlur={onBlur}
         value={value}

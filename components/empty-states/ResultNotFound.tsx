@@ -1,31 +1,15 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Image, StyleSheet } from "react-native";
+import { Image } from "react-native";
 import assets from "../../assets";
 import Box from "../../theme/Box";
 import Button from "../../theme/Button";
 import { colors } from "../../theme/palette";
 import Text from "../../theme/Text";
 
-const ResultNotFound = ({
-  variant = "absolute",
-}: {
-  variant?: "absolute" | "default";
-}) => {
-  const { goBack } = useNavigation();
+const ResultNotFound = ({ onRetry }: { onRetry: () => any }) => {
   return (
-    <Box
-      flex={1}
-      alignItems="center"
-      justifyContent="center"
-      style={
-        variant === "absolute" && [
-          StyleSheet.absoluteFillObject,
-          { zIndex: -1 },
-        ]
-      }
-    >
+    <Box flex={1} alignItems="center" justifyContent="center">
       <Image source={assets["not-found-image"]} />
 
       <Box
@@ -42,7 +26,7 @@ const ResultNotFound = ({
         </Text>
 
         <Button
-          onPress={() => goBack()}
+          onPress={() => onRetry()}
           shadowColor="secondary.light"
           shadowOffset={{ height: 0, width: 10 }}
           backgroundColor="primary.main"
@@ -64,6 +48,7 @@ const ResultNotFound = ({
                 borderWidth: 2,
                 borderRadius: 12,
                 flexDirection: "row",
+                zIndex: 23,
               }}
             >
               <Ionicons name="search" color={colors["grey.200"]} size={20} />
