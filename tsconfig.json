@@ -5,7 +5,7 @@
     "skipDefaultLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "jsx": "react-native",
-    "types": ["react"],
+    "types": ["react", "jest"],
     "allowJs": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -22,7 +22,8 @@
     "node_modules/**/*",
     "babel.config.js",
     "metro.config.js",
-    "jest.config.js"
+    "jest.config.js",
+    "fileTransformer.js"
   ],
 
   "extends": "expo/tsconfig.base"

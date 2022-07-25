@@ -80,6 +80,7 @@ const AppHeader = ({
       start={{ x: 0, y: 0.65 }}
       end={{ x: 1, y: 0.45 }}
       {...gradientProps}
+      style={[{ zIndex: 100 }, gradientProps.style]}
     >
       <SafeAreaView
         edges={["top"]}
@@ -102,9 +103,10 @@ const AppHeader = ({
         >
           {/* Change the status bar foreground color */}
           <StatusBar
+            backgroundColor={colors["primary.light"]}
+            translucent
             style="light"
             {...statusBarProps}
-            backgroundColor={palette.primaryMain}
           />
           {!isHome && (
             <Box

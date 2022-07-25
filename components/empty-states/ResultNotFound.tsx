@@ -52,7 +52,7 @@ const ResultNotFound = ({ onRetry }: { onRetry: () => any }) => {
               }}
             >
               <Ionicons name="search" color={colors["grey.200"]} size={20} />
-              <Text variant="buttonLabel" color="grey.200" lineHeight={0}>
+              <Text variant="buttonLabel" color="grey.200">
                 Search Again
               </Text>
             </LinearGradient>

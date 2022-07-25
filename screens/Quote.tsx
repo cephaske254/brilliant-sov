@@ -1,6 +1,7 @@
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { BlurView } from "expo-blur";
+import { StatusBar } from "expo-status-bar";
 import { Fragment, useEffect, useState } from "react";
 import {
   Dimensions,
@@ -9,7 +10,6 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Animated, {
   SharedValue,
   useAnimatedStyle,
@@ -27,6 +27,7 @@ import { useDispatch } from "../store";
 import { selectQuoteByCategoryOrSearchQuery } from "../store/selectors/quotes";
 import { reduxGetQuote } from "../store/thunks/quotes";
 import Box from "../theme/Box";
+import Button from "../theme/Button";
 import Text from "../theme/Text";
 import { Theme } from "../theme/theme";
 
@@ -65,6 +66,7 @@ const Quote = () => {
   return (
     <View style={{ flex: 1, backgroundColor: colors["primary.dark"] }}>
       <Loading loading={loading} />
+      <StatusBar translucent backgroundColor="transparent" />
 
       {/* if loading has stopped and there is no quote */}
       {!loading && !quote ? (
@@ -77,7 +79,8 @@ const Quote = () => {
             style={{
               zIndex: 1,
               position: "absolute",
-              left: 10,
+              left: 15,
+              top: 10,
             }}
           >
             <Box
@@ -88,28 +91,29 @@ const Quote = () => {
                 shadowOpacity: 0.4,
                 shadowRadius: 5,
                 backgroundColor: alpha(colors["grey.100"], 0.4),
+                zIndex: 1,
               }}
             >
-              <TouchableOpacity
-                activeOpacity={0.6}
+              <Button
                 style={{ borderRadius: 17, overflow: "hidden" }}
                 onPress={goBack}
-              >
-                <BlurView intensity={11} tint="light">
-                  <Box
-                    height={35}
-                    width={35}
-                    alignItems="center"
-                    justifyContent="center"
-                  >
-                    <MaterialIcons
-                      name="chevron-left"
-                      size={25}
-                      color={colors["primary.dark"]}
-                    />
-                  </Box>
-                </BlurView>
-              </TouchableOpacity>
+                label={
+                  <BlurView intensity={11} tint="light">
+                    <Box
+                      height={35}
+                      width={35}
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <MaterialIcons
+                        name="chevron-left"
+                        size={25}
+                        color={colors["primary.dark"]}
+                      />
+                    </Box>
+                  </BlurView>
+                }
+              />
             </Box>
           </SafeAreaView>
           <Image

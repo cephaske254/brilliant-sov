@@ -4,13 +4,7 @@ import { loadAsync } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { PureComponent } from "react";
-import {
-  Dimensions,
-  EmitterSubscription,
-  Keyboard,
-  Pressable,
-  View,
-} from "react-native";
+import { Dimensions, EmitterSubscription, Keyboard, View } from "react-native";
 import "react-native-gesture-handler";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
@@ -21,8 +15,9 @@ import { reduxGetCategories } from "./store/thunks/categories";
 import { palette } from "./theme/palette";
 import theme from "./theme/theme";
 import { FontNames } from "./theme/variants";
+const { height } = Dimensions.get("screen");
 
-export default class App extends PureComponent<any, { initialized: boolean }> {
+class App extends PureComponent<any, { initialized: boolean }> {
   constructor(props: any) {
     super(props);
     // function bindings
@@ -89,27 +84,20 @@ export default class App extends PureComponent<any, { initialized: boolean }> {
   }
 
   render() {
-    const { height } = Dimensions.get("screen");
     return (
       <Provider store={store}>
         <SafeAreaProvider>
           <View style={{ height, backgroundColor: palette.paper }}>
             {this.state.initialized && (
-              <Pressable
-                disabled={!this.keyboardOpen}
-                onPress={this.handleBlur}
-                style={{ flex: 1 }}
-              >
-                <ThemeProvider theme={theme}>
-                  {/* Set the background of the status bar to match the app background */}
-                  <StatusBar
-                    style="light"
-                    animated
-                    backgroundColor={palette.primaryMain}
-                  />
-                  <MainRouter />
-                </ThemeProvider>
-              </Pressable>
+              <ThemeProvider theme={theme}>
+                {/* Set the background of the status bar to match the app background */}
+                <StatusBar
+                  style="light"
+                  animated
+                  backgroundColor={palette.primaryLight}
+                />
+                <MainRouter />
+              </ThemeProvider>
             )}
           </View>
         </SafeAreaProvider>
@@ -122,3 +110,5 @@ const fonts: Record<keyof FontNames, string> = {
   "Poppins-Medium": require("./assets/fonts/Poppins-Medium.ttf"),
   "Poppins-Regular": require("./assets/fonts/Poppins-Regular.ttf"),
 };
+
+export default App;

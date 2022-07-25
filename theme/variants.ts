@@ -65,7 +65,6 @@ const variants = {
     },
     buttonLabel: {
       fontSize: 16,
-      lineHeight: 16,
       letterSpacing: 1,
       fontFamily: "Poppins-Medium",
     },

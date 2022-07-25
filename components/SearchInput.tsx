@@ -4,15 +4,12 @@ import colorAlpha from "color-alpha";
 import { RefObject, useState } from "react";
 import {
   ActivityIndicator,
-  GestureResponderEvent,
   LayoutChangeEvent,
   NativeSyntheticEvent,
   Platform,
   StyleSheet,
   TextInput,
   TextInputFocusEventData,
-  TextInputSubmitEditingEventData,
-  TouchableNativeFeedback,
   ViewStyle,
 } from "react-native";
 import Animated, { AnimatedStyleProp } from "react-native-reanimated";
@@ -22,6 +19,7 @@ import { useDispatch } from "../store";
 import { selectSearchResults } from "../store/selectors/search";
 import { reduxSearchQuotes } from "../store/thunks/quotes";
 import Box from "../theme/Box";
+import Button from "../theme/Button";
 import { palette } from "../theme/palette";
 import theme from "../theme/theme";
 
@@ -47,11 +45,7 @@ const SearchInput = ({
   const { loading, query } = useSelector(selectSearchResults);
   const [{ value }, setState] = useState({ value: query });
 
-  const handleSearch = (
-    _:
-      | NativeSyntheticEvent<TextInputSubmitEditingEventData>
-      | GestureResponderEvent
-  ) => {
+  const handleSearch = () => {
     if (!value || value?.trim() === query?.trim()) goToSearch();
     else
       dispatch(reduxSearchQuotes(value)).then(() => {
@@ -87,7 +81,7 @@ const SearchInput = ({
         onBlur={onBlur}
         value={value}
         onChangeText={(value) => setState((b) => ({ ...b, value }))}
-        onSubmitEditing={(e) => handleSearch(e)}
+        onSubmitEditing={() => handleSearch()}
         placeholder="Search..."
         allowFontScaling
         placeholderTextColor={palette.paper}
@@ -110,21 +104,24 @@ const SearchInput = ({
       ) : (
         !hideIcon && (
           <Animated.View style={[iconAnimation]}>
-            <TouchableNativeFeedback onPress={(e) => handleSearch(e)}>
-              <Box
-                style={{
-                  borderLeftColor: palette.grey["500_32"],
-                  borderLeftWidth: StyleSheet.hairlineWidth,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: SEARCH_BUTTON_SIZE,
-                  height: SEARCH_BUTTON_SIZE,
-                  borderRadius: 9,
-                }}
-              >
-                <Ionicons name="search" size={20} color={palette.white} />
-              </Box>
-            </TouchableNativeFeedback>
+            <Button
+              onPress={() => handleSearch()}
+              label={
+                <Box
+                  style={{
+                    borderLeftColor: palette.grey["500_32"],
+                    borderLeftWidth: StyleSheet.hairlineWidth,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: SEARCH_BUTTON_SIZE,
+                    height: SEARCH_BUTTON_SIZE,
+                    borderRadius: 9,
+                  }}
+                >
+                  <Ionicons name="search" size={20} color={palette.white} />
+                </Box>
+              }
+            />
           </Animated.View>
         )
       )}

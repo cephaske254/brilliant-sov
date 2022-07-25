@@ -1,4 +1,4 @@
-import alpha from "color-alpha/index";
+import alpha from "color-alpha";
 
 const grey = {
   "": "#FFFFFF",
@@ -87,4 +87,3 @@ type GreyMapping = Record<
 type Colors = keyof typeof colors;
 
 export { palette, colors, Colors };
-
