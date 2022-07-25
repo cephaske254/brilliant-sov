@@ -11,6 +11,9 @@ export const reduxGetQuote = createAsyncThunk<Quote, any>(
 export const reduxSearchQuotes = createAsyncThunk(
   "SEARCH_QUOTES",
   (arg: string) => {
-    return apiSearchQuotes(arg);
+    return apiSearchQuotes(arg).catch(() => ({
+      total: 0,
+      result: [],
+    }));
   }
 );

@@ -14,16 +14,21 @@ import {
   VariantProps,
 } from "@shopify/restyle";
 import React, { ReactElement } from "react";
-import { LayoutChangeEvent, TouchableNativeFeedback } from "react-native";
+import {
+  LayoutChangeEvent,
+  TouchableNativeFeedback,
+  ViewStyle,
+} from "react-native";
 import Box from "./Box";
 import Text from "./Text";
 import { Theme } from "./theme";
 
-type RestyleProps = SpacingProps<Theme> &
-  BorderProps<Theme> &
-  LayoutProps<Theme> &
-  ShadowProps<Theme> &
-  BackgroundColorProps<Theme>;
+type RestyleProps =
+  | SpacingProps<Theme> &
+      BorderProps<Theme> &
+      LayoutProps<Theme> &
+      ShadowProps<Theme> &
+      BackgroundColorProps<Theme>;
 
 const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   spacing,
@@ -37,9 +42,17 @@ type Props = RestyleProps & {
   onPress: () => void;
   label: string | ReactElement;
   onLayout?: (e: LayoutChangeEvent) => void;
+  style?: ViewStyle;
 } & VariantProps<Theme, "buttonVariants">;
 
-const Button = ({ onLayout, variant, onPress, label, ...rest }: Props) => {
+const Button = ({
+  onLayout,
+  variant,
+  onPress,
+  style,
+  label,
+  ...rest
+}: Props) => {
   const props = useRestyle(restyleFunctions, rest);
 
   return (
@@ -49,6 +62,9 @@ const Button = ({ onLayout, variant, onPress, label, ...rest }: Props) => {
         borderRadius="l"
         overflow="hidden"
         {...(props as any)}
+        {...{
+          style: [props.style, style],
+        }}
       >
         {typeof label === "string" ? (
           <Text variant="buttonLabel">{label}</Text>
