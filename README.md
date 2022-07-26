@@ -65,13 +65,13 @@ Launch [Expo Go](https://expo.dev/client) on your Android/iOS phone, and follow 
 
 ![title](./screenshots/Home.PNG)
 
-### Quote Detail View
+### Joke Detail View
 
-![title](./screenshots/Quote.PNG)
+![title](./screenshots/Joke.PNG)
 
-### Quote Not Found
+### Joke Not Found
 
-![title](./screenshots/Quote-Not-Found.PNG)
+![title](./screenshots/Joke-Not-Found.PNG)
 
 ### Search Results
 

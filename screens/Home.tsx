@@ -55,7 +55,7 @@ const Home = () => {
               >
                 <TouchableNativeFeedback
                   onPress={() =>
-                    navigate("Quote", {
+                    navigate("Joke", {
                       category,
                     })
                   }

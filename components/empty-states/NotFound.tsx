@@ -29,7 +29,7 @@ const NotFound = () => {
           Not Found
         </Text>
         <Text variant="body2" color="grey.300" textAlign="center" marginTop="m">
-          Sorry, the quote you're looking for can't be found
+          Sorry, the joke you're looking for can't be found
         </Text>
 
         <Button

@@ -1,31 +1,31 @@
 import { api, unsplash } from "./api";
 
-export const apiGetQuote = async ({
+export const apiGetJoke = async ({
   category,
 }: {
   category: string;
-}): Promise<Quote> => {
+}): Promise<Joke> => {
   // run 2 parallel requests
-  const [image, quote] = (await Promise.all([
+  const [image, jokee] = (await Promise.all([
     getRandomBackgroundImage(category),
-    getRandomQuote(category),
-  ])) as [any, Quote];
+    getRandomJoke(category),
+  ])) as [any, Joke];
 
   return {
-    ...quote,
+    ...jokee,
     icon_url: image.urls.small,
   };
 };
 
-const getRandomQuote = (category: string) =>
-  api.get<Quote>("jokes/random", { params: { category } }).then((a) => a.data);
+const getRandomJoke = (category: string) =>
+  api.get<Joke>("jokes/random", { params: { category } }).then((a) => a.data);
 
 const getRandomBackgroundImage = (category: string) =>
   unsplash
     .get("/photos/random", { params: { query: category } })
     .then((a) => a.data);
 
-export type Quote = {
+export type Joke = {
   categories: string[];
   created_at: string;
   icon_url: string;
@@ -35,10 +35,10 @@ export type Quote = {
   value: string;
 };
 
-export const apiSearchQuotes = (query: string) =>
+export const apiSearchJokes = (query: string) =>
   api
     .get<{
       total: number;
-      result: Quote[];
+      result: Joke[];
     }>("jokes/search", { params: { query } })
     .then((a) => a.data);

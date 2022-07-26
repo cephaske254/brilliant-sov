@@ -10,7 +10,7 @@ import {
 
 import Category from "./screens/Category";
 import Home from "./screens/Home";
-import Quote from "./screens/Quote";
+import Joke from "./screens/Joke";
 import Search from "./screens/Search";
 import { palette } from "./theme/palette";
 
@@ -18,7 +18,7 @@ export type MainRoutes = {
   Home: undefined;
   Search: undefined;
   Category: undefined;
-  Quote: { category?: string; id?: string; query?: string };
+  Joke: { category?: string; id?: string; query?: string };
 };
 
 export type SharedNavigationProps<T extends keyof MainRoutes> =
@@ -51,7 +51,7 @@ const SharedElementRouter = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Category" component={Category} />
-        <Stack.Screen name="Quote" component={Quote} />
+        <Stack.Screen name="Joke" component={Joke} />
       </Stack.Navigator>
     </NavigationContainer>
   );

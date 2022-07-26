@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Fragment, useEffect, useRef } from "react";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
-import { Quote } from "../api/quotes";
+import { Joke } from "../api/jokes";
 import AppHeader from "../components/AppHeader";
 import Loading from "../components/empty-states/Loading";
 import ResultNotFound from "../components/empty-states/ResultNotFound";
@@ -21,9 +21,9 @@ const Search = () => {
 
   const searchInputRef = useRef<TextInput>(null);
 
-  const launchQuote = (quote: Quote) => {
-    navigate("Quote", {
-      id: quote.id,
+  const launchJoke = (joke: Joke) => {
+    navigate("Joke", {
+      id: joke.id,
       query,
     });
   };
@@ -82,7 +82,7 @@ const Search = () => {
                       style={{ zIndex: 100 }}
                       key={result.id}
                       onPress={() => {
-                        launchQuote(result);
+                        launchJoke(result);
                       }}
                       label={
                         <Card

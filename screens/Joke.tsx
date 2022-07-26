@@ -24,8 +24,8 @@ import NotFound from "../components/empty-states/NotFound";
 import useTheme from "../hooks/useTheme";
 import { MainRouteParams } from "../router";
 import { useDispatch } from "../store";
-import { selectQuoteByCategoryOrSearchQuery } from "../store/selectors/quotes";
-import { reduxGetQuote } from "../store/thunks/quotes";
+import { selectJokeByCategoryOrSearchQuery } from "../store/selectors/jokes";
+import { reduxGetJoke } from "../store/thunks/jokes";
 import Box from "../theme/Box";
 import Button from "../theme/Button";
 import Text from "../theme/Text";
@@ -34,16 +34,16 @@ import { Theme } from "../theme/theme";
 const defaultImage =
   "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max";
 
-const Quote = () => {
+const Joke = () => {
   const { width, height } = Dimensions.get("screen");
-  const { params } = useRoute<MainRouteParams<"Quote">>();
+  const { params } = useRoute<MainRouteParams<"Joke">>();
 
   const { goBack } = useNavigation();
 
   const { colors, alpha } = useTheme();
   // store & state
-  const { loading, quote } = useSelector(
-    selectQuoteByCategoryOrSearchQuery(params)
+  const { loading, joke } = useSelector(
+    selectJokeByCategoryOrSearchQuery(params)
   );
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const Quote = () => {
   const [{ imageErrored }, setState] = useState({ imageErrored: false });
 
   // Animations
-  // - quote container dimensions
+  // - joke container dimensions
   const dimensions = useSharedValue<LayoutRectangle>({
     height: 0,
     width: 0,
@@ -60,7 +60,7 @@ const Quote = () => {
   });
 
   useEffect(() => {
-    if (!quote) dispatch(reduxGetQuote(params));
+    if (!joke) dispatch(reduxGetJoke(params));
   }, [dispatch]);
 
   return (
@@ -68,13 +68,13 @@ const Quote = () => {
       <Loading loading={loading} />
       <StatusBar translucent backgroundColor="transparent" />
 
-      {/* if loading has stopped and there is no quote */}
-      {!loading && !quote ? (
+      {/* if loading has stopped and there is no joke */}
+      {!loading && !joke ? (
         <NotFound />
       ) : (
         <Fragment>
-          {/* Animated Quote icons */}
-          <QuoteIcons layout={dimensions} colors={colors} />
+          {/* Animated Joke icons */}
+          <JokeIcons layout={dimensions} colors={colors} />
           <SafeAreaView
             style={{
               zIndex: 1,
@@ -119,7 +119,7 @@ const Quote = () => {
           <Image
             fadeDuration={300}
             source={{
-              uri: imageErrored ? defaultImage : quote?.icon_url,
+              uri: imageErrored ? defaultImage : joke?.icon_url,
               width: 400,
               cache: "force-cache",
             }}
@@ -166,7 +166,7 @@ const Quote = () => {
                     lineHeight={32}
                     textAlign="center"
                   >
-                    {quote?.value}
+                    {joke?.value}
                   </Text>
                 </Box>
               </BlurView>
@@ -178,15 +178,15 @@ const Quote = () => {
   );
 };
 
-const QuoteIcons = ({
+const JokeIcons = ({
   layout,
   colors,
 }: {
   layout: SharedValue<LayoutRectangle>;
   colors: Theme["colors"];
 }) => {
-  // animate quote containers to their positions
-  const topQuoteIconStyles = useAnimatedStyle(() => ({
+  // animate joke containers to their positions
+  const topJokeIconStyles = useAnimatedStyle(() => ({
     position: "absolute",
     top: withTiming(layout.value.y, { duration: 250 }),
     left: withSpring(layout.value.x, { velocity: 10, damping: 5 }),
@@ -197,7 +197,7 @@ const QuoteIcons = ({
     ],
     zIndex: 2,
   }));
-  const bottomQuoteIconStyles = useAnimatedStyle(() => ({
+  const bottomJokeIconStyles = useAnimatedStyle(() => ({
     position: "absolute",
     bottom: withTiming(layout.value.y, { duration: 250 }),
     right: withSpring(layout.value.x, {
@@ -215,7 +215,7 @@ const QuoteIcons = ({
           <Animated.View
             key={position}
             style={[
-              position === "top" ? topQuoteIconStyles : bottomQuoteIconStyles,
+              position === "top" ? topJokeIconStyles : bottomJokeIconStyles,
               ,
               {
                 height: ICON_HEIGHT,
@@ -236,4 +236,4 @@ const QuoteIcons = ({
 };
 const ICON_HEIGHT = 60;
 
-export default Quote;
+export default Joke;

@@ -17,7 +17,7 @@ import { useSelector } from "react-redux";
 import { MainRouteParams, SharedNavigationProps } from "../router";
 import { useDispatch } from "../store";
 import { selectSearchResults } from "../store/selectors/search";
-import { reduxSearchQuotes } from "../store/thunks/quotes";
+import { reduxSearchJokes } from "../store/thunks/jokes";
 import Box from "../theme/Box";
 import Button from "../theme/Button";
 import { palette } from "../theme/palette";
@@ -48,7 +48,7 @@ const SearchInput = ({
   const handleSearch = () => {
     if (!value || value?.trim() === query?.trim()) goToSearch();
     else
-      dispatch(reduxSearchQuotes(value)).then(() => {
+      dispatch(reduxSearchJokes(value)).then(() => {
         goToSearch();
       });
   };

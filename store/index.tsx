@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import categories from "./slices/categories";
-import quotes from "./slices/quotes";
+import jokes from "./slices/jokes";
 
 const reducer = combineReducers({
   categories,
-  quotes,
+  jokes,
 });
 
 const store = configureStore({

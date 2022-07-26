@@ -1,9 +1,9 @@
 import { createDraftSafeSelector } from "@reduxjs/toolkit";
 import { State, useDispatch } from "..";
-import { reduxSearchQuotes } from "../thunks/quotes";
+import { reduxSearchJokes } from "../thunks/jokes";
 
 export const selectSearchResults = createDraftSafeSelector(
-  (state: State) => state.quotes,
+  (state: State) => state.jokes,
   (a) => {
     const results = a.search.results[a.search.currentQuery] ?? [];
     return {
@@ -12,8 +12,7 @@ export const selectSearchResults = createDraftSafeSelector(
       query: a.search.currentQuery ?? "",
       notFound: !a.loading.search && !!a.search.currentQuery && !results.length,
       hasResults: !!a.search.currentQuery && !!results.length,
-      retry: () =>
-        useDispatch()(reduxSearchQuotes(a.search.currentQuery ?? "")),
+      retry: () => useDispatch()(reduxSearchJokes(a.search.currentQuery ?? "")),
     };
   }
 );

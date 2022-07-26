@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Quote } from "../../api/quotes";
-import { reduxGetQuote, reduxSearchQuotes } from "../thunks/quotes";
+import { Joke } from "../../api/jokes";
+import { reduxGetJoke, reduxSearchJokes } from "../thunks/jokes";
 
 type InitialState = {
   loading: { global: boolean; search: boolean };
-  quotes: Record<string, Quote>;
+  jokes: Record<string, Joke>;
   search: {
     currentQuery: string;
-    results: Record<string, Quote[]>;
+    results: Record<string, Joke[]>;
   };
 };
 const initialState: InitialState = {
@@ -15,29 +15,29 @@ const initialState: InitialState = {
     global: false,
     search: false,
   },
-  quotes: {},
+  jokes: {},
   search: {
     currentQuery: "",
     results: {},
   },
 };
 
-const quotes = createSlice({
-  name: "quotes",
+const jokes = createSlice({
+  name: "jokes",
   initialState,
   reducers: {},
   extraReducers(builder) {
-    // when a quote is fetched successfully
+    // when a joke is fetched successfully
     builder
-      .addCase(reduxGetQuote.fulfilled, (state, { payload, meta: { arg } }) => {
-        // set a quote for a specific category
-        state.quotes[arg.category] = payload;
+      .addCase(reduxGetJoke.fulfilled, (state, { payload, meta: { arg } }) => {
+        // set a joke for a specific category
+        state.jokes[arg.category] = payload;
         state.loading.global = false;
         return state;
       })
 
-      // search quotes
-      .addCase(reduxSearchQuotes.fulfilled, (state, { payload, meta }) => {
+      // search jokes
+      .addCase(reduxSearchJokes.fulfilled, (state, { payload, meta }) => {
         const query = meta.arg.trim();
 
         state.search.results[query] = payload.result;
@@ -48,23 +48,23 @@ const quotes = createSlice({
       })
 
       // set global loading
-      .addCase(reduxGetQuote.pending, (state) => {
+      .addCase(reduxGetJoke.pending, (state) => {
         state.loading.global = true;
       })
       // set global loading false
-      .addCase(reduxGetQuote.rejected, (state) => {
+      .addCase(reduxGetJoke.rejected, (state) => {
         state.loading.global = false;
       })
 
       // set search loading true
-      .addCase(reduxSearchQuotes.pending, (state) => {
+      .addCase(reduxSearchJokes.pending, (state) => {
         state.loading.search = true;
       })
       // set search loading false
-      .addCase(reduxSearchQuotes.rejected, (state) => {
+      .addCase(reduxSearchJokes.rejected, (state) => {
         state.loading.search = false;
       });
   },
 });
 
-export default quotes.reducer;
+export default jokes.reducer;
