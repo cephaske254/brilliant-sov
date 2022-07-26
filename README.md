@@ -37,19 +37,25 @@ Launch [Expo Go](https://expo.dev/client) on your Android/iOS phone, and follow 
 ## Folder Structure
 
 ```
+.
 ├── api
 ├── assets
-│   ├── fonts
-│   └── icons
+│   ├── fonts
+│   └── icons
 ├── components
-│   └── empty-states
+│   └── empty-states
 ├── contexts
+├── coverage
+│   └── lcov-report
 ├── hooks
 ├── screens
+├── screenshots
 ├── store
-│   ├── selectors
-│   ├── slices
-│   └── thunks
+│   ├── selectors
+│   ├── slices
+│   └── thunks
+├── __tests__
+│   ├── api
 └── theme
 ```
 
